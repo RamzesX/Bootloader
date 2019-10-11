@@ -10,7 +10,7 @@ Chodzi o to, ze w ten spsob byla zapisywana pierwsza instrukacja do wykonania pr
 Firmware zas szuka po dyskach i urzadzeniach odpowiedniej bitowej sygnatury w poczatkowych bajtach danego nosnika.
 Jesli wzorzec sie zgadza przystepuje do kopiowania tego programu do pamieci operacyjnej, w standardach jest ustalone ze to okolo 510-512 bajtow. Nastepnie zas, ustawia adres wykonania intrukcji na znowu standaryzowana wartosc ( tam gdzie zostal wczytany bootloader) i nastepnie bootloader zaczyna byc wykonywany przez procesor.
 
-Rozmiar 512 bajtow jest zwiazny z pozioma bezpiecznestwa procesora tzw. rigns.
+Rozmiar 512 bajtow jest zwiazany z poziomami bezpiecznestwa procesora tzw. sequrity rigns.
 
 W normalnych warunkach bootloader, to program ktory ma dostep i rozumie systemy plikow na dyskach, w jakims standaryzowanym pliku ( o znanej nazwie) przechowuje sie informacje o dostepnych do wczytania systemach operacjnych. 
 
@@ -29,8 +29,8 @@ Bede stopniowo dodawal tutaj informacje z racji z tego, ze mam troche problemow 
 Pozdrawiam
 Norbert Marchewka
 
-
-
-
 How to run it:
+Potrzebne bedzie qemu i asm.
+qemu trzeba sobie samemu pobrac, a asm jest chyba standardowo w dystrybucjach linkusowych.
+Pozniej dodam jakas bardziej szczegolowa instrukcje.
 
