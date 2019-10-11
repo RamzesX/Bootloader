@@ -18,7 +18,7 @@ Nastepnie bootloader bierze kod takiego systemu ( caly lub jego czesc ) i go wcz
 
 W naszym przypadku zamiast tego mamy gre :). Miala byc troche ambitniejsza i artystyczna, ale nie zrobi sie duzo na tych 512 bajtach. Projekt doprowadzilem do momentu kiedy stal sie interaktywny. Zostala dodana prosta funkcjonalnosc przesuwania wskaznika wyboru opcji. Na razie moga panstwo zaobserowowac to na screenach.
 
-Bede stopniowo dodwal tutaj informacje z racji z tego, ze mam troche problemow na glowie. Niestety zmarl czlonek rodziny wiec prosze Panstwa o wyrozumialosc.
+Bede stopniowo dodawal tutaj informacje z racji z tego, ze mam troche problemow na glowie. Niestety zmarl czlonek rodziny wiec prosze Panstwa o wyrozumialosc.
 
 
 Pozdrawiam
