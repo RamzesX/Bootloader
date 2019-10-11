@@ -16,7 +16,12 @@ W normalnych warunkach bootloader, to program ktory ma dostep i rozumie systemy 
 
 Nastepnie bootloader bierze kod takiego systemu ( caly lub jego czesc ) i go wczytuje do pamieci operacyjnej, a nastepnie skacze do miejsca jego wykonania. 
 
-W naszym przypadku zamiast tego mamy gre :). Miala byc troche ambitniejsza i artystyczna, ale nie zrobi sie duzo na tych 512 bajtach. Projekt doprowadzilem do momentu kiedy stal sie interaktywny. Zostala dodana prosta funkcjonalnosc przesuwania wskaznika wyboru opcji. Na razie moga panstwo zaobserowowac to na screenach.
+W naszym przypadku zamiast tego mamy gre :). Miala byc troche ambitniejsza i artystyczna, ale nie zrobi sie duzo na tych 512 bajtach. Projekt doprowadzilem do momentu kiedy stal sie interaktywny. Zostala dodana prosta funkcjonalnosc przesuwania wskaznika wyboru opcji. Na razie moga panstwo zaobserwowac to na screenach.
+
+Program korzysta z api udostepnionego przez Bios. Tego typu instrukcje wywoluje sie przez specjlany rozkaz procesora zwany przerwaniem. Wtedy w danym rejestrze zapisuje sie czego wlasciwie zadamy, czyli id danej funkcji i jej argumenty. 
+Nastenie specjalny rozkaz procesora, wtedy procesor uruchamia kod obslugi przerwania ( znowu standaryzacja i hardkodowana wartosc) a ten kod juz pobiera arugemnty, wie gdzie bios jest, uruchamia jakas jego funkcje, ta funkcja przyjmuje znowu argumenty i w koncu zaczyna rozmawiac z np karta graficzna albo wyswietlaczem.
+
+Podobnie aktywuje sie nasluchiwanie przerwan sprzetowych, oraz rejestracje handlerow ( czyli adresow ) funkcji ktore maja robic jakies ustalone ( juz przez nas programistow) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora. 
 
 Bede stopniowo dodawal tutaj informacje z racji z tego, ze mam troche problemow na glowie. Niestety zmarl czlonek rodziny wiec prosze Panstwa o wyrozumialosc.
 
