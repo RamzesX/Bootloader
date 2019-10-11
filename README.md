@@ -1,39 +1,51 @@
 # Bootloader
 
-Ponizej prosta instrukcja jak to dziala i jak to uruchomic.
+Poniżej prosta instrukcja czym jest, do czego służy i jak go uruchomić ;) 
 
-W typowych sytuacjach bootloader byl programem ktory uruchamial sie zaraz po firmwarze zapisanym w pamieci rom komputera.
-Firmaware zas byl uruchamiany przez cpu na zasadzie zahardkowadania tej wartosci ( byc moze w postaci modyfikowalnej) na zasadzie skonstrowania odpowiedniego obwodu elektrycznego.
+Przede wszystkim Bootloader to program napisany najczęściej w asemblerze ( z racji na ograniczona ilość pamięci), który jest jakby taką trampoliną służąca do załadownia systemu operacyjnego do pamięci. Poniższy artykuł opisuje go oraz jego powiązania z innymi komponentami systemu operacyjnego. 
 
-Chodzi o to, ze w ten spsob byla zapisywana pierwsza instrukacja do wykonania przez procesor, pod tym adresem zazwyczaj umieszcza sie firmware. 
+W dalszej części jest opis jak zmieniłem jego domyślne zachowanie.
+Zapraszam do lektury ;). 
 
-Firmware zas szuka po dyskach i urzadzeniach odpowiedniej bitowej sygnatury w poczatkowych bajtach danego nosnika.
-Jesli wzorzec sie zgadza przystepuje do kopiowania tego programu do pamieci operacyjnej, w standardach jest ustalone ze to okolo 510-512 bajtow. Nastepnie zas, ustawia adres wykonania intrukcji na znowu standaryzowana wartosc ( tam gdzie zostal wczytany bootloader) i nastepnie bootloader zaczyna byc wykonywany przez procesor.
+W typowych sytuacjach bootloader był programem który był uruchamiany przez firmware taki jak bios. Lokalizacja biosu to pamięc rom, czyli taka, ktora nie znika z pamięci komputera a cpu ma do niej zawsze dostep.
 
-Rozmiar 512 bajtow jest zwiazany z poziomami bezpiecznestwa procesora tzw. sequrity rings.
+Firmware był uruchamiany przez cpu na zasadzie zahardkodowania tej wartości na zasadzie skonstruowania odpowiedniego obwodu elektrycznego w obrebie cpu.
 
-W normalnych warunkach bootloader, to program ktory ma dostep i rozumie systemy plikow na dyskach, w jakims standaryzowanym pliku ( o znanej nazwie) przechowuje sie informacje o dostepnych do wczytania systemach operacjnych. 
+Chodzi o to, ze w ten sposób była zapisywana pierwsza instrukcja do wykonania przez procesor, a ta wartośc to był numer komorki pamieci gdzie ten firmware sie zaczynał.
 
-Nastepnie bootloader bierze kod takiego systemu ( caly lub jego czesc ) i go wczytuje do pamieci operacyjnej, a nastepnie skacze do miejsca jego wykonania. 
+Firmware zaś szukal po dyskach i urządzeniach odpowiedniej bitowej sygnatury w początkowych bajtach danego nośnika.
+Jeśli wzorzec się zgadzal przystępował do kopiowania tego programu do pamięci operacyjnej, w standardach jest ustalone ze to około 510-512 bajtów. Następnie zaś, ustawiał adres wykonania instrukcji na znowu standaryzowanej wartości ( tam gdzie został wczytany bootloader) i następnie bootloader zaczyna być wykonywany przez procesor.
 
-W naszym przypadku zamiast tego mamy gre :). Miala byc troche ambitniejsza i artystyczna, ale nie zrobi sie duzo na tych 512 bajtach. Projekt doprowadzilem do momentu kiedy stal sie interaktywny. Zostala dodana prosta funkcjonalnosc przesuwania wskaznika wyboru opcji. Na razie moga panstwo zaobserwowac to na screenach.
+Rozmiar 512 bajtów jest związany z trybami adresowymi. Chodzi o to, że z jakiegoś powodu( niejasnego dla nikogo oprócz Intela) procesor musi emulować po kolei działanie starszych procesorów. I w tym trybie w którym ma działac bootloader jest to 512 bajtów. 
 
-Program korzysta z api udostepnionego przez Bios. Tego typu instrukcje wywoluje sie przez specjlany rozkaz procesora zwany przerwaniem. Wtedy w danym rejestrze zapisuje sie czego wlasciwie zadamy, czyli id danej funkcji i jej argumenty. 
-Nastenie specjalny rozkaz procesora, wtedy procesor uruchamia kod obslugi przerwania ( znowu standaryzacja i hardkodowana wartosc) a ten kod juz pobiera arugemnty, wie gdzie bios jest, uruchamia jakas jego funkcje, ta funkcja przyjmuje znowu argumenty i w koncu zaczyna rozmawiac z np karta graficzna albo wyswietlaczem.
+W normalnych warunkach bootloader, to program który ma dostęp i rozumie systemy plików na dyskach. Więc w jakimś standaryzowanym pliku ( o znanej nazwie) przechowuje się informacje o dostępnych do wczytania systemach operacyjnych. 
 
-Podobnie aktywuje sie nasluchiwanie przerwan sprzetowych, oraz rejestracje handlerow ( czyli adresow ) funkcji ktore maja robic jakies ustalone ( juz przez nas programistow) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora.
+Następnie bootloader bierze kod takiego systemu ( cały lub jego cześć ) i go wczytuje do pamięci operacyjnej, a następnie skacze do miejca go wczytał a potem ten os zaczyna się wykonywać.
 
-Warto wspomniec, ze przedstawiona powyzej informacja dotyczy Legacy Bios, w UEFI firmware ma duzo wieksze uprawnienia, oraz prawdopodobnie nie trzeba sie ograniczac do 512 bajtow.
-  
+W naszym przypadku zamiast tego mamy grę :). Miała być trochę ambitniejsza i artystyczna, ale nie zrobi się dużo na tych 512 bajtach. Projekt doprowadziłem do momentu kiedy stal się interaktywny. Została dodana prosta funkcjonalność przesuwania wskaźnika wyboru opcji. Na razie mogą państwo zaobserwować to na screenach.
 
-Bede stopniowo dodawal tutaj informacje z racji z tego, ze mam troche problemow na glowie. Niestety zmarl czlonek rodziny wiec prosze Panstwa o wyrozumialosc.
+Program korzysta z api udostępnionego przez Bios. Tego typu instrukcje wywołuje się przez specjalny rozkaz procesora zwany przerwaniem. Wtedy w danym rejestrze zapisuje się czego właściwie zadamy, czyli id danej funkcji i jej argumenty. 
+Następnie wykonujemy specjalny rozkaz procesora, wtedy procesor uruchamia kod obsługi przerwania (zapisany gdzies w obszarze biosu) a ten kod już pobiera argumenty, wie gdzie jest docelowa funkcja. 
+
+Podobnie aktywuje się nasłuchiwanie przerwań sprzętowych, oraz rejestracje handlerów ( czyli adresów ) funkcji które maja robić jakieś ustalone ( już przez nas programistów) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora w odpowiedzi na zewnetrzne zdarzenia.
+
+Warto wspomnieć, ze przedstawiona powyżej informacja dotyczy Legacy Bios, w UEFI firmware ma dużo większe uprawnienia, oraz prawdopodobnie nie trzeba się ograniczać do 512 bajtów.
+
+Cały ten proces dzieje się na jednym rdzeniu, zazwyczaj os uruchamia sam pozostałe.
+Komercyjne programy jak Grub i LILO, to takie które udają system operacyjny, czyli to ich Bootloader wczytuje.
+  
 
 
 Pozdrawiam
 Norbert Marchewka
 
 How to run it:
-Potrzebne bedzie qemu i asm.
-qemu trzeba sobie samemu pobrac, a asm jest chyba standardowo w dystrybucjach linkusowych.
-Pozniej dodam jakas bardziej szczegolowa instrukcje.
+Potrzebne będzie qemu i nasm.
+nasm:
+sudo apt-get install nasm
+quemu: 
+apt-get install qemu
+
+Potem trzeba zrobic maka takiego jak w plikach projektu i juz ;)
+Później dodam jakaś bardziej szczegółowa instrukcje.
 
