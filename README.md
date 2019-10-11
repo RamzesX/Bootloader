@@ -21,7 +21,10 @@ W naszym przypadku zamiast tego mamy gre :). Miala byc troche ambitniejsza i art
 Program korzysta z api udostepnionego przez Bios. Tego typu instrukcje wywoluje sie przez specjlany rozkaz procesora zwany przerwaniem. Wtedy w danym rejestrze zapisuje sie czego wlasciwie zadamy, czyli id danej funkcji i jej argumenty. 
 Nastenie specjalny rozkaz procesora, wtedy procesor uruchamia kod obslugi przerwania ( znowu standaryzacja i hardkodowana wartosc) a ten kod juz pobiera arugemnty, wie gdzie bios jest, uruchamia jakas jego funkcje, ta funkcja przyjmuje znowu argumenty i w koncu zaczyna rozmawiac z np karta graficzna albo wyswietlaczem.
 
-Podobnie aktywuje sie nasluchiwanie przerwan sprzetowych, oraz rejestracje handlerow ( czyli adresow ) funkcji ktore maja robic jakies ustalone ( juz przez nas programistow) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora. 
+Podobnie aktywuje sie nasluchiwanie przerwan sprzetowych, oraz rejestracje handlerow ( czyli adresow ) funkcji ktore maja robic jakies ustalone ( juz przez nas programistow) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora.
+
+Warto wspomniec, ze przedstawiona powyzej informacja dotyczy Legacy Bios, w UEFI firmware ma duzo wieksze uprawnienia, oraz prawdopodobnie nie trzeba sie ograniczac do 512 bajtow.
+  
 
 Bede stopniowo dodawal tutaj informacje z racji z tego, ze mam troche problemow na glowie. Niestety zmarl czlonek rodziny wiec prosze Panstwa o wyrozumialosc.
 
