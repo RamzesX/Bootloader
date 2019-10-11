@@ -10,7 +10,7 @@ Chodzi o to, ze w ten spsob byla zapisywana pierwsza instrukacja do wykonania pr
 Firmware zas szuka po dyskach i urzadzeniach odpowiedniej bitowej sygnatury w poczatkowych bajtach danego nosnika.
 Jesli wzorzec sie zgadza przystepuje do kopiowania tego programu do pamieci operacyjnej, w standardach jest ustalone ze to okolo 510-512 bajtow. Nastepnie zas, ustawia adres wykonania intrukcji na znowu standaryzowana wartosc ( tam gdzie zostal wczytany bootloader) i nastepnie bootloader zaczyna byc wykonywany przez procesor.
 
-Rozmiar 512 bajtow jest zwiazany z poziomami bezpiecznestwa procesora tzw. sequrity rigns.
+Rozmiar 512 bajtow jest zwiazany z poziomami bezpiecznestwa procesora tzw. sequrity rings.
 
 W normalnych warunkach bootloader, to program ktory ma dostep i rozumie systemy plikow na dyskach, w jakims standaryzowanym pliku ( o znanej nazwie) przechowuje sie informacje o dostepnych do wczytania systemach operacjnych. 
 
