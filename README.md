@@ -41,6 +41,9 @@ Norbert Marchewka
 
 How to run it:
 Potrzebne będzie qemu i nasm.
+
+
+
 nasm:
 sudo apt-get install nasm
 quemu: 
