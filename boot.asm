@@ -1,29 +1,25 @@
-;Tron Solitare
-;  *This is a PoC boot sector ( <512 bytes) game
-;  *Controls to move are just up/down/left/right
-;  *Avoid touching yourself, blue border, and the
-;     unlucky red 7
 
-[ORG 0x7c00]      ;add to offsets
+
+[ORG 0x7c00]      ; dodanie do offsetu ( zwiazek z trybeem adresowania pamieci)
 LEFT  EQU 75
 RIGHT EQU 77
 UP    EQU 72
 DOWN  EQU 80
 
-;Init the environment
-;  init data segment
-;  init stack segment allocate area of mem
-;  init E/video segment and allocate area of mem
-;  Set to 0x03/80x25 text mode
-;  Hide the cursor
+;  Inicjalizacja 
+;  Inicjalizacja segmentu danych
+;  Inicjalizacja stosu i alokacja pamieci
+;  Inicjalizacja segmentu video i alokacja pamieci dla niego
+;  Wlaczenie trybu tekstowego 0x03/80x25
+;  Ukrycie kursora biosowego
 
 ; ah i al to jest gorna i dolna polowa ax, a ax to dolna polowa eax
    xor ax, ax     ;make it zero ; to jest taki ogolny rejestr
    mov ds, ax     ;DS=0, to jest segment danych, i to jest ten podstawowy
 
-   mov ss, ax     ;stack starts at 0, to jest od stack segment, czyli gdzie ten stos ma sie zaczyna, troche glupio, ze segment danhych i stosu sie zaczyna, w tym samym mijescu,
+   mov ss, ax     ;stos zaczyna sie od 0, to jest od stack segment, czyli gdzie ten stos ma sie zaczyna, troche glupio, ze segment danhych i stosu sie zaczyna, w tym samym mijescu,
    ; ale to moze tylko kwestia ustawienia sobie basepointera i toppointera, a ten ss, sie tak na prawde nie liczy
-   mov sp, 0x9c00 ;200h past code start, to jest jais arbitalnie wybrany adres, jakies ciemne arkany xd
+   mov sp, 0x9c00 ; to jest jais arbitalnie wybrany adres, jakies ciemne arkany xd
  
    mov ah, 0xb8   ;text video memory, czyli tutaj jakby przechowujemy adres pamieci grafinczej, i przez dodawanie czegos do mlodszej polowy, bedziemy sie przesuwac tylko po wydzielonym obszarze
    mov es, ax     ;ES=0xB800, to wyglada, ze tez jest jakis dodatkowy ten rejestr
@@ -31,8 +27,8 @@ DOWN  EQU 80
    mov al, 0x03 ; w al, argument ktory bierze przerwanie
    int 0x10 ; tutaj jest jakies pierwsze uzycie biosu i nie wiem co sie z tym wiaze
 
-   ;Seems that this isn't needed, but leaving in commented out in case it needs to be added back
-   ;mov al, 0x03   ;Some BIOS crash without this.                 
+   ;trzeba to zostawic, ale nie wiadomo z jakiego powodu
+   ;mov al, 0x03   ; Jakies Biosy sie crashuja bez tego                 
    ;mov ch, 0x26
    ;inc ah
    ;int 0x10 
