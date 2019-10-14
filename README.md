@@ -39,10 +39,14 @@ Komercyjne programy jak Grub i LILO, to takie które udają system operacyjny, c
 How to run it:
 Potrzebne będzie qemu i nasm.
 
-
-
 nasm:
 sudo apt-get install nasm
+                                                                                       
+
+
+
+
+
 quemu: 
 apt-get install qemu
 
