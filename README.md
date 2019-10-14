@@ -36,9 +36,6 @@ Komercyjne programy jak Grub i LILO, to takie które udają system operacyjny, c
   
 
 
-Pozdrawiam
-Norbert Marchewka
-
 How to run it:
 Potrzebne będzie qemu i nasm.
 
