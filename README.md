@@ -51,5 +51,7 @@ quemu:
 apt-get install qemu
 
 Potem trzeba zrobic maka takiego jak w plikach projektu i juz ;)
+W razie problemów piszcie dzwoncie.
+norbert.marchewka44@gmail.com
 Później dodam jakaś bardziej szczegółowa instrukcje.
 
