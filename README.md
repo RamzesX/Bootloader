@@ -1,35 +1,35 @@
 # Bootloader
 
-Przede wszystkim Bootloader to program napisany najczęściej w asemblerze ( z racji na ograniczona ilość pamięci), który jest taką trampoliną służąca do załadownia systemu operacyjnego do pamięci. Poniższy artykuł opisuje go oraz jego powiązania z innymi komponentami systemu operacyjnego. 
+First of all Bootloader is a program written mostly in assembler (because of the limited memory), which is a springboard used to load the operating system to memory. This article describes it and how it relates to other components of the operating system. 
 
-W dalszej części jest opis jak zmieniłem jego domyślne zachowanie, aby stworzyć prostą grę.
+In the next part there is a description how I changed its default behavior to create a simple game.
 
-W typowych sytuacjach bootloader był programem który był uruchamiany przez firmware taki jak bios. Lokalizacja biosu to pamięc rom, czyli taka, ktora nie znika z pamięci komputera a cpu ma do niej zawsze dostep.
+In typical situations the bootloader was a program that was run by firmware such as the bios. The bios location is a rom, that is a memory location that does not disappear from the computer memory and the cpu always has access to it.
 
-Firmware był uruchamiany przez cpu na zasadzie zahardkodowania takiego zachowania na zasadzie skonstruowania odpowiedniego obwodu elektrycznego w obrebie cpu.
+The firmware was run by the cpu by hardcoding this behavior by constructing an electrical circuit within the cpu.
 
-Chodzi o to, ze w ten sposób była zapisywana pierwsza instrukcja do wykonania przez procesor, a ta wartośc to był numer komorki pamieci gdzie ten firmware sie zaczynał.
+The idea is that this is how the first instruction to be executed by the processor was stored, and this value was the memory cell number where the firmware started.
 
-Firmware zaś szukal po dyskach i urządzeniach odpowiedniej bitowej sygnatury w początkowych bajtach danego nośnika.
-Jeśli wzorzec się zgadzal przystępował do kopiowania tego programu do pamięci operacyjnej, w standardach jest ustalone ze to około 510-512 bajtów. Następnie zaś, ustawiał adres wykonania instrukcji na znowu standaryzowanej wartości ( tam gdzie został wczytany bootloader) i następnie bootloader zaczyna być wykonywany przez procesor.
+The firmware searched the disks and devices for the correct bit pattern in the initial bytes of the media.
+If the pattern matched, it proceeded to copy the program to the operating memory, which is defined by the standards to be about 510-512 bytes. Then, it sets the instruction execution address to another standard value (where the bootloader was loaded), and then the bootloader starts to be executed by the processor.
 
-Rozmiar 512 bajtów jest związany z trybami adresowymi. Chodzi o to, że z jakiegoś powodu( niejasnego dla nikogo oprócz Intela) procesor musi emulować po kolei działanie starszych procesorów. I w tym trybie w którym ma działac bootloader jest to 512 bajtów. 
+The 512 bytes size is related to the address modes. The point is that for some reason( unclear to anyone except Intel) the processor must emulate the older processors one by one. And in this mode, in which the bootloader should work, it is 512 bytes. 
 
-W normalnych warunkach bootloader, to program który ma dostęp i rozumie systemy plików na dyskach. Więc w jakimś standaryzowanym pliku ( o znanej nazwie) przechowuje się informacje o dostępnych do wczytania systemach operacyjnych. 
+Under normal circumstances, the bootloader, is a program that accesses and understands the file systems on disks. So in some standardized file (with a known name) is stored information about available to load operating systems. 
 
-Następnie bootloader bierze kod takiego systemu ( cały lub jego cześć ) i go wczytuje do pamięci operacyjnej, a następnie skacze do miejca go wczytał a potem ten os zaczyna się wykonywać.
+Then the bootloader takes the code of such a system ( all or part of it ) and loads it into RAM, then jumps to the place where it loaded it and then this os starts executing.
 
-W naszym przypadku zamiast tego mamy grę :). Miała być trochę ambitniejsza i artystyczna, ale nie zrobi się dużo na tych 512 bajtach. Projekt doprowadziłem do momentu kiedy stal się interaktywny. Została dodana prosta funkcjonalność przesuwania wskaźnika wyboru opcji. Na razie mogą państwo zaobserwować to na screenach.
+In our case we have a game instead :). It was supposed to be a bit more ambitious and artistic, but you can't do much on these 512 bytes. I brought the project to the point where it became interactive. There was added a simple functionality of moving the option selection indicator. For now, you can see it on screens.
 
-Program korzysta z api udostępnionego przez Bios. Tego typu instrukcje wywołuje się przez specjalny rozkaz procesora zwany przerwaniem. Wtedy w danym rejestrze zapisuje się czego właściwie zadamy, czyli id danej funkcji i jej argumenty. 
-Następnie wykonujemy specjalny rozkaz procesora, wtedy procesor uruchamia kod obsługi przerwania (zapisany gdzies w obszarze biosu) a ten kod już pobiera argumenty, wie gdzie jest docelowa funkcja. 
+The program is using api provided by Bios. These types of instructions are called by a special processor command called interrupt. Then, in a given register we write what we actually ask for, that is the id of a given function and its arguments. 
+Then, we execute a special command from the processor, then the processor runs the interrupt service code (stored somewhere in the bios area) and this code already gets the arguments, it knows where the target function is. 
 
-Podobnie aktywuje się nasłuchiwanie przerwań sprzętowych, oraz rejestracje handlerów ( czyli adresów ) funkcji które maja robić jakieś ustalone ( już przez nas programistów) rzeczy jak np czyszczenie ekranu, albo przesuwanie kursora w odpowiedzi na zewnetrzne zdarzenia.
+Similarly, we activate hardware interrupt listening, and registering handlers (addresses) of functions that are supposed to do some predetermined (by us programmers) things like cleaning the screen, or moving the cursor in response to external events.
 
-Warto wspomnieć, ze przedstawiona powyżej informacja dotyczy Legacy Bios, w UEFI firmware ma dużo większe uprawnienia, oraz prawdopodobnie nie trzeba się ograniczać do 512 bajtów.
+It is worth mentioning that the information presented above concerns Legacy Bios, in UEFI the firmware has much more permissions, and probably does not have to be limited to 512 bytes.
 
-Cały ten proces dzieje się na jednym rdzeniu, zazwyczaj os uruchamia sam pozostałe.
-Komercyjne programy jak Grub i LILO, to takie które udają system operacyjny, czyli to ich Bootloader wczytuje.
+This whole process happens on one core, usually os runs the others by itself.
+Commercial programs like Grub and LILO are those that pretend to be the operating system, i.e. it is their Bootloader that loads.
   
 
 
@@ -47,5 +47,4 @@ sudo apt-get install nasm
 quemu: 
 apt-get install qemu
 
-Potem trzeba zrobic make-a takiego jak w plikach projektu.
-
+Then you need to make a make-a like in the project files.
