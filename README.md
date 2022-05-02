@@ -1,15 +1,12 @@
 # Bootloader
 
-Poniżej prosta instrukcja czym jest, do czego służy i jak go uruchomić ;) 
+Przede wszystkim Bootloader to program napisany najczęściej w asemblerze ( z racji na ograniczona ilość pamięci), który jest taką trampoliną służąca do załadownia systemu operacyjnego do pamięci. Poniższy artykuł opisuje go oraz jego powiązania z innymi komponentami systemu operacyjnego. 
 
-Przede wszystkim Bootloader to program napisany najczęściej w asemblerze ( z racji na ograniczona ilość pamięci), który jest jakby taką trampoliną służąca do załadownia systemu operacyjnego do pamięci. Poniższy artykuł opisuje go oraz jego powiązania z innymi komponentami systemu operacyjnego. 
-
-W dalszej części jest opis jak zmieniłem jego domyślne zachowanie.
-Zapraszam do lektury ;). 
+W dalszej części jest opis jak zmieniłem jego domyślne zachowanie, aby stworzyć prostą grę.
 
 W typowych sytuacjach bootloader był programem który był uruchamiany przez firmware taki jak bios. Lokalizacja biosu to pamięc rom, czyli taka, ktora nie znika z pamięci komputera a cpu ma do niej zawsze dostep.
 
-Firmware był uruchamiany przez cpu na zasadzie zahardkodowania tej wartości na zasadzie skonstruowania odpowiedniego obwodu elektrycznego w obrebie cpu.
+Firmware był uruchamiany przez cpu na zasadzie zahardkodowania takiego zachowania na zasadzie skonstruowania odpowiedniego obwodu elektrycznego w obrebie cpu.
 
 Chodzi o to, ze w ten sposób była zapisywana pierwsza instrukcja do wykonania przez procesor, a ta wartośc to był numer komorki pamieci gdzie ten firmware sie zaczynał.
 
@@ -50,8 +47,5 @@ sudo apt-get install nasm
 quemu: 
 apt-get install qemu
 
-Potem trzeba zrobic maka takiego jak w plikach projektu i juz ;)
-W razie problemów piszcie dzwoncie.
-norbert.marchewka44@gmail.com
-Później dodam jakaś bardziej szczegółowa instrukcje.
+Potem trzeba zrobic make-a takiego jak w plikach projektu.
 
